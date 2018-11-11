@@ -4,4 +4,4 @@ services:
     container_name: proxy
     build: .
     ports: 
-    - "80:3003"
+    - "8000:3003"
