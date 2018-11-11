@@ -1,8 +1,3 @@
-.main {
-    justify-content: center;
-    position: relative;
-}
-
 .h2T {
     font-size: 12px;
     color: #999;
@@ -52,7 +47,7 @@
     display: flex;
     border-bottom: 1px solid #f2f2f2;
     color: #999;
-    margin-top:-100px;
+    margin-top:-50px;
     font-weight: 100;
     margin-bottom: 20px;
   }
@@ -112,7 +107,7 @@
   }
   .main {
     justify-content: center;
-    position: absolute;
+    position: relative;
   }
   .likeEle {
     padding: 5px 0;
@@ -450,16 +445,9 @@
     width: 15px;
   }
   
-  
-  
-  
-  
-  
-  
-  
   .entire-component {
       position: relative;
-      left: 10px;
+      left:5%;
   }
   
   .container {
@@ -471,7 +459,7 @@
   .counts {
       display: inline-block;
       position: absolute;
-      left: 200px;
+      left: 280px;
   
   }
   

@@ -1,30 +1,32 @@
-const express = require('express');
-const morgan = require('morgan');
-const path = require('path');
-const request = require('request');
+const express = require(`express`);
+const morgan = require(`morgan`);
+const path = require(`path`);
+const httpProxy = require(`http-proxy`);
+const apiProxy = httpProxy.createProxyServer();
+const yongsooServer = `http://54.183.184.86`;
+const steveServer = `http://13.57.49.186:3000`;
+const dylanServer = `http://52.13.8.105`;
 const app = express();
 const port = process.env.PORT || 3003;
 
-app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, '/proxy/public')));
+app.use(morgan(`dev`));
+app.use(express.static(path.join(__dirname, `/proxy/public`)));
 
-app.use('/artists', function(req, res) {
-  var url = 'http://localhost:3000/artists';
-  req.pipe(request(url)).pipe(res);
-  });
+app.all(`/api/songs`, (req, res) => {
+ console.log(`redirecting to yongsooServer`);
+ apiProxy.web(req, res, {target: yongsooServer});
+});
 
-app.use('/api/songs', function(req, res) {
-  var url = `http://localhost:3001/api/songs/${req.params.id}`;
-  req.pipe(request(url)).pipe(res);
-  });
-  
-app.use('/data', function(req, res) {
-  var url = `http://localhost:3002/data`;
-  req.pipe(request(url)).pipe(res);
-  });
-  
+app.all(`/data`, (req, res) => {
+ console.log(`redirecting to steveServer`);
+ apiProxy.web(req, res, {target: steveServer});
+});
 
+app.all(`/artists`, (req, res) => {
+ console.log(`redirecting to dylanServer`);
+ apiProxy.web(req, res, {target: dylanServer});
+})
 
 app.listen(port, () => {
-  console.log(`server running at: http://localhost:${port}`);
+ console.log(`Proxy server running on port ${port}`);
 });
